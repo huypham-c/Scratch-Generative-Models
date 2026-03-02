@@ -11,14 +11,14 @@ from lib.utils import *
 
 batch_size = 32
 epochs = 50
-train = False
+train = True
 
 file_name = 'weight/gan_weights.pkl'
 os.makedirs(os.path.dirname(file_name), exist_ok=True)
 generator = Generator(image_height=28, image_width=28, image_channel=1)
 discriminator = Discriminator(image_height=28, image_width=28, image_channel=1)
 g_optimizer = Adam(generator.get_layer(), lr=0.0002, beta1=0.5, beta2=0.999)
-d_optimizer = Adam(discriminator.get_layer(), lr=0.0002, beta1=0.5, beta2=0.999)
+d_optimizer = Adam(discriminator.get_layer(), lr=0.0001, beta1=0.5, beta2=0.999)
 
 note = """
     GAN - EMNIST
@@ -157,7 +157,7 @@ plt.figure(figsize=(cols * 2.5, rows * 2.5))
 for i in range(num_samples):
     ax = plt.subplot(rows, cols, i + 1)
 
-    plt.imshow(generated_images_np[i].reshape(28, 28), cmap='gray')
+    plt.imshow(generated_images_np[i].reshape(28, 28).T, cmap='gray')
     plt.axis('off')
 plt.suptitle("Generated images", fontsize=20)
 plt.tight_layout()
